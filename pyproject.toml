@@ -13,6 +13,7 @@ dependencies = [
     "nbconvert",
     "ipykernel",
     "seaborn>=0.13.2",
+    "statsmodels>=0.15.0",
 ]
 
 [tool.uv]
