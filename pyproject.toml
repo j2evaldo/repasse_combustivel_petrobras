@@ -1,0 +1,19 @@
+[project]
+name = "petr-estudo"
+version = "0.1.0"
+description = "Estudo do impacto do petroleo na inflacao brasileira e desempenho PETR4 vs PRIO3"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas",
+    "numpy",
+    "matplotlib",
+    "yfinance",
+    "openpyxl",
+    "jupyter",
+    "nbconvert",
+    "ipykernel",
+    "seaborn>=0.13.2",
+]
+
+[tool.uv]
+package = false
