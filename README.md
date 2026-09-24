@@ -9,7 +9,8 @@
 > e a diferença, multiplicada pelo volume vendido, é uma estimativa do que ela **deixou de arrecadar**.
 >
 > **A resposta.** O represamento existiu, foi **seletivo e intermitente**, concentrado na gasolina.
-> A sangria estimada no período foi de **cerca de R$ 98,7 bilhões**.
+> A sangria estimada no período fica entre **R$ 28,6 e R$ 295,1 bilhões** (mediana R$ 113,2 bi;
+> cenário base R$ 98,7 bi), dependendo das premissas de tributos e custo de importação.
 
 ![Sangria mensal estimada](images/02_sangria.png)
 
@@ -26,6 +27,8 @@
   houve congelamento contínuo.
 - A "sangria" concentra-se em **janelas específicas**: 2023–24 (~R$ 17 bi/ano) e sobretudo **2026**
   (R$ 38 bi em 7 meses, com gap da gasolina ~+1,2 R$/L).
+- Por ser sensível a premissas, a sangria é reportada como **faixa** (R$ 28,6–295,1 bi), não como
+  número único.
 
 **Métricas-chave**
 
@@ -42,6 +45,12 @@
 |---|---:|
 | Gasolina | +0,18 |
 | Diesel | −0,16 |
+
+| Sangria acumulada (R$ bi) | Valor |
+|---|---:|
+| Cenário base | 98,7 |
+| Faixa de sensibilidade (p5–p95) | 28,6 – 295,1 |
+| Mediana (Monte Carlo) | 113,2 |
 
 ---
 
@@ -102,6 +111,11 @@ Todas as fontes são públicas e baixadas em tempo de execução.
   Gap positivo = Petrobras vende abaixo da paridade. Só gaps positivos entram na sangria
   (estimativa conservadora).
 
+- **Sensibilidade da sangria.** Como o resultado depende de premissas frágeis, reportamos uma
+  **faixa**: uma tabela de cenários (custo de importação, tributos, proxy) e um **Monte Carlo**
+  (~2.000 simulações) variando custo de importação (R$ 0,05–0,35), acurácia dos tributos (0,8–1,2×)
+  e proxy internacional (±5%), com seed fixo.
+
 ---
 
 #### **Resultados**
@@ -125,8 +139,17 @@ de etanol (27%), que amortece o Brent.
 
 ![Sangria mensal](images/02_sangria.png)
 
-Na média o gap é próximo de zero, mas há concentração em 2021–22 e sobretudo 2026. A estimativa
-acumulada é de **R$ 98,7 bilhões**, enquanto o diesel seguiu mais de perto a paridade.
+Na média o gap é próximo de zero, mas há concentração em 2021–22 e sobretudo 2026. A estimativa no
+cenário base é de **R$ 98,7 bilhões**, enquanto o diesel seguiu mais de perto a paridade.
+
+**4. Sensibilidade: a sangria é uma faixa, não um número**
+
+![Sensibilidade da sangria](images/02_sensibilidade.png)
+
+Variando as premissas frágeis (custo de importação, acurácia dos tributos e proxy internacional),
+a sangria acumulada vai de **R$ 28,6 a R$ 295,1 bilhões** (mediana R$ 113,2 bi). A largura da
+faixa é a mensagem: o valor deve ser lido como **ordem de grandeza**, e os proxies de preço são o
+fator dominante.
 
 ---
 
@@ -137,6 +160,8 @@ acumulada é de **R$ 98,7 bilhões**, enquanto o diesel seguiu mais de perto a p
 - Alíquotas de ICMS **pré-2023** (ad valorem) são aproximadas.
 - O preço da ANP é de **distribuição** (inclui mistura de etanol/biodiesel e margem da distribuidora).
 - **Gap ≠ intenção política**: pode refletir defasagem da política de preços e prêmios de importação.
+- A **faixa de sensibilidade é larga** (R$ 28,6–295,1 bi): o número central, sozinho, superestima a
+  precisão do resultado.
 
 Por isso, o valor da sangria deve ser lido como **ordem de grandeza, não como valor exato**.
 
@@ -162,6 +187,6 @@ As fontes (Yahoo Finance e ANP) são baixadas durante a execução.
 #### **Próximos passos**
 
 - Rodar a Camada A por sub-período (pré/pós mudanças de política de preços).
-- Testar sensibilidade do `CUSTO_IMPORT` (R$ 0,10–0,30/L) e do número de defasagens.
-- Substituir os proxies RBOB/ULSD por referências reais de importação.
+- Automatizar a análise de sensibilidade no pipeline modular (P1) e reportá-la por sub-período.
+- Substituir os proxies RBOB/ULSD por referências reais de importação (hoje o fator dominante da faixa).
 - Isolar etanol/biodiesel e rodar um teste de placebo com combustível não controlado.
